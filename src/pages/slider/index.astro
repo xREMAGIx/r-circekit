@@ -1,0 +1,22 @@
+---
+import ThreeItemSlider from "@components/Slider/ThreeItemSlider.astro";
+import RawThreeItemSlider from "@components/Slider/ThreeItemSlider.astro?raw";
+
+import CodeWrapper from "@layouts/CodeWrapper.astro";
+import ComponentTab from "@layouts/ComponentTab.astro";
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="Slider">
+  <!-- Checkbox hover with color box -->
+  <h2>Three items slider</h2>
+  <div class="hello"></div>
+  <ComponentTab>
+    <div class="max-w-full" slot="preview">
+      <ThreeItemSlider />
+    </div>
+    <div slot="code">
+      <CodeWrapper raw={RawThreeItemSlider} />
+    </div>
+  </ComponentTab>
+</Layout>

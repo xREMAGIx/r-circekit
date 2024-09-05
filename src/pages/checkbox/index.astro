@@ -1,0 +1,33 @@
+---
+import CheckboxTickColor from "@components/Checkbox/CheckboxTickColor.astro";
+import RawCheckboxTickColor from "@components/Checkbox/CheckboxTickColor.astro?raw";
+import CheckboxBoxColor from "@components/Checkbox/CheckboxBoxColor.astro";
+import RawCheckboxBoxColor from "@components/Checkbox/CheckboxBoxColor.astro?raw";
+
+import CodeWrapper from "@layouts/CodeWrapper.astro";
+import ComponentTab from "@layouts/ComponentTab.astro";
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="Checkbox">
+  <!-- Checkbox hover with color box -->
+  <h2>Checkbox with color box</h2>
+  <ComponentTab>
+    <div class="flex justify-center bg-base-200" slot="preview">
+      <CheckboxBoxColor id="check1" label="Test checkbox" />
+    </div>
+    <div slot="code">
+      <CodeWrapper raw={RawCheckboxBoxColor} />
+    </div>
+  </ComponentTab>
+  <!-- Checkbox hover with color tick -->
+  <h2 class="mt-10">Checkbox with color tick</h2>
+  <ComponentTab>
+    <div class="flex justify-center bg-base-200" slot="preview">
+      <CheckboxTickColor id="check3" label="Test checkbox" />
+    </div>
+    <div slot="code">
+      <CodeWrapper raw={RawCheckboxTickColor} />
+    </div>
+  </ComponentTab>
+</Layout>

@@ -1,0 +1,131 @@
+---
+import "@glidejs/glide/dist/css/glide.core.min.css";
+---
+
+<div id="glide" class="glide">
+  <div class="flex justify-between items-center">
+    <h2 class="text-mobile-h2 lg:text-desktop-h2 font-medium text-primary">
+      Slider
+    </h2>
+    <div class="hidden lg:block">
+      <div class="glide__arrows" data-glide-el="controls">
+        <button
+          class="glide__arrow glide__arrow--left group"
+          data-glide-dir="|<"
+          ><svg
+            width="30"
+            height="30"
+            viewBox="0 0 30 30"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="stroke-primary group-disabled:stroke-[#898A8D]"
+          >
+            <rect
+              x="-0.5"
+              y="0.5"
+              width="28.012"
+              height="28.012"
+              rx="14.006"
+              transform="matrix(-1 0 0 1 28.9883 0.988281)"></rect>
+            <path
+              d="M19.1094 22.748L11.8564 15.4951L19.1094 8.24206"
+              stroke-width="2.41766"
+              stroke-linecap="round"></path>
+          </svg>
+        </button>
+        <button
+          class="glide__arrow glide__arrow--right group"
+          data-glide-dir="|>"
+          ><svg
+            width="30"
+            height="30"
+            viewBox="0 0 30 30"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="stroke-primary group-disabled:stroke-[#898A8D]"
+          >
+            <rect
+              x="1.48828"
+              y="1.48828"
+              width="28.012"
+              height="28.012"
+              rx="14.006"></rect>
+            <path
+              d="M11.8672 22.748L19.1202 15.4951L11.8672 8.24206"
+              stroke-width="2.41766"
+              stroke-linecap="round"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mt-12">
+    <div class="lg:mx-0">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          {
+            Array.from({ length: 6 }).map((_, idx) => (
+              <li class="glide__slide">
+                <div class="w-full bg-white">Item {idx}</div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import Glide from "@glidejs/glide";
+  import { Breakpoints } from "@glidejs/glide/dist/glide.modular.esm";
+
+  const glide = document.querySelector("#glide");
+
+  if (glide) {
+    function DisableControls(Glide, Components, Events) {
+      const PREV_CONTROL_SELECTOR = "[data-glide-dir='|<']";
+      const NEXT_CONTROL_SELECTOR = "[data-glide-dir='|>']";
+      const component = {
+        buildAfter() {
+          this.prevBtn = Components.Html.root.querySelector(
+            PREV_CONTROL_SELECTOR
+          );
+          this.nextBtn = Components.Html.root.querySelector(
+            NEXT_CONTROL_SELECTOR
+          );
+        },
+        handleDisable() {
+          const perView = Glide.settings.perView;
+          const slidesCount = Components.Html.slides.length;
+
+          this.prevBtn.disabled = Glide.index <= 0;
+          this.nextBtn.disabled = Glide.index >= slidesCount - perView;
+        },
+      };
+
+      Events.on("build.after", function () {
+        component.buildAfter();
+        component.handleDisable();
+      });
+      Events.on("run.after", function () {
+        component.handleDisable();
+      });
+      return component;
+    }
+
+    let slider = new Glide("#glide", {
+      type: "slider",
+      perView: 3,
+      gap: 20,
+      perSwipe: "|",
+      breakpoints: {
+        767: { perView: 1, perSwipe: "" },
+        1023: { perView: 2, perSwipe: "" },
+      },
+    }).mount({ Breakpoints, DisableControls: DisableControls });
+
+    // //* Call update if init fail
+    slider.update();
+  }
+</script>

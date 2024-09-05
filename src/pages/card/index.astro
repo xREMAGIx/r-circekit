@@ -1,0 +1,21 @@
+---
+import CardHoverTransition from "@components/Card/CardHoverTransition.astro";
+import RawCardHoverTransition from "@components/Card/CardHoverTransition.astro?raw";
+
+import CodeWrapper from "@layouts/CodeWrapper.astro";
+import ComponentTab from "@layouts/ComponentTab.astro";
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="Card">
+  <!-- Card hover with transition -->
+  <h2>Card hover with transition</h2>
+  <ComponentTab>
+    <div class="flex-1 max-w-96" slot="preview">
+      <CardHoverTransition title="Building" href="#" />
+    </div>
+    <div slot="code">
+      <CodeWrapper raw={RawCardHoverTransition} />
+    </div>
+  </ComponentTab>
+</Layout>

@@ -1,0 +1,31 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  href: string;
+}
+
+const { title, description, href } = Astro.props;
+---
+
+<div class="group card w-full bg-base-100 shadow-xl">
+  <div class="card-body">
+    <h2
+      class="card-title justify-center transition duration-300 translate-y-full group-hover:translate-y-0"
+    >
+      {title}
+    </h2>
+    {
+      description && (
+        <p class="text-center transition duration-300 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+          {description}
+        </p>
+      )
+    }
+    <div
+      class="card-actions mt-8 justify-center transition duration-300 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100"
+    >
+      <a href={href} class="btn btn-primary">Read more</a>
+    </div>
+  </div>
+</div>

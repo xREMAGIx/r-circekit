@@ -1,0 +1,26 @@
+<div x-data="{ tab: 'preview' }">
+  <div class="my-4 tabs tabs-boxed">
+    <button
+      class="tab"
+      :class="{'tab-active': tab === 'preview' }"
+      @click="tab = 'preview'">Preview</button
+    >
+    <button
+      class="tab"
+      :class="{'tab-active': tab === 'code' }"
+      @click="tab = 'code'">Code</button
+    >
+  </div>
+  <div x-cloak x-show="tab === 'preview'">
+    <div class="mockup-window border bg-base-300 w-mobile-content lg:w-content">
+      <div class="flex justify-center mx-4 my-10 bg-base-200">
+        <slot name="preview" />
+      </div>
+    </div>
+  </div>
+  <div x-cloak x-show="tab === 'code'">
+    <div class="mockup-code px-5 w-mobile-content lg:w-content">
+      <slot name="code" />
+    </div>
+  </div>
+</div>
